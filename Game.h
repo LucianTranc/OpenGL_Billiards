@@ -1,9 +1,11 @@
 #pragma once
 #include <SDL.h>
-//#include <SDL_image.h>
-//#include <SDL_ttf.h>
+#include <SDL_image.h>
+#include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
+#include "AssetManager.h"
+#include "TextureManager.h"
 
 class ColliderComponent;
 class AssetManager;
@@ -33,7 +35,12 @@ public:
 	static SDL_Event event;
 	static bool isRunning;
 	static SDL_Rect camera;
-	static AssetManager *assets;
+	static AssetManager *assetManager;
+	static TextureManager *textureManager;
+	//CIRCLE
+	SDL_Texture *circleText;
+	SDL_Rect circleSrc;
+	SDL_Rect circleDest;
 	//static UIStatistics *statManager;
 	enum groupLabels : std::size_t
 	{

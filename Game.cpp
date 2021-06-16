@@ -7,6 +7,8 @@ SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
 
 SDL_Rect Game::camera = { 0, 0, 800*2, 640*2 };
+AssetManager* Game::assetManager = new AssetManager();
+TextureManager* Game::textureManager = new TextureManager();
 	
 bool Game::isRunning = false;
 
@@ -44,10 +46,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	/* if (TTF_Init() == -1)
+	if (TTF_Init() == -1)
 	{
 		std::cout << "Error : SDL_TTF" << std::endl;
-	} */
+	}
 
 	loadAssets();
 	
@@ -63,6 +65,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::loadAssets()
 {
+	circleText = textureManager->LoadTexture("assets/rainbowCircle.jpg");
+	assetManager->AddFont("arial", "assets/arial.ttf", 16);
 }
 
 void Game::loadMap()
@@ -71,6 +75,15 @@ void Game::loadMap()
 
 void Game::createPlayer()
 {
+	circleDest.x = 0;
+	circleDest.y = 0;
+	circleDest.h = 100;
+	circleDest.w = 100;
+	
+	circleSrc.x = 0;
+	circleSrc.y = 0;
+	circleSrc.h = 900;
+	circleSrc.w = 900;
 }
 
 void Game::setCamera()
@@ -93,12 +106,15 @@ void Game::handleEvents() {
 
 void Game::update()
 {
+	
 }
 
 
 void Game::render() 
 {
 	SDL_RenderClear(renderer);
+	SDL_RendererFlip *tempflip = new SDL_RendererFlip();
+	textureManager->Draw(circleText, circleSrc, circleDest, *tempflip);
 	SDL_RenderPresent(renderer);
 }
 
