@@ -65,7 +65,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::loadAssets()
 {
-	circleText = textureManager->LoadTexture("assets/rainbowCircle.jpg");
+	assetManager->AddTexture("ball", "assets/projectile2.png", renderer);
 	assetManager->AddFont("arial", "assets/arial.ttf", 16);
 }
 
@@ -75,15 +75,8 @@ void Game::loadMap()
 
 void Game::createPlayer()
 {
-	circleDest.x = 0;
-	circleDest.y = 0;
-	circleDest.h = 100;
-	circleDest.w = 100;
-	
-	circleSrc.x = 0;
-	circleSrc.y = 0;
-	circleSrc.h = 900;
-	circleSrc.w = 900;
+	tempBallA = new Ball(assetManager, 400.0, 400.0);
+	tempBallB = new Ball(assetManager, 300.0, 400.0);
 }
 
 void Game::setCamera()
@@ -107,14 +100,19 @@ void Game::handleEvents() {
 void Game::update()
 {
 	
+	tempBallA->update();
+	tempBallB->update();
+
+	std::cout<<Collision::DetectCollision(tempBallA->ballCollider, tempBallB->ballCollider)<<std::endl;
+
 }
 
 
 void Game::render() 
 {
 	SDL_RenderClear(renderer);
-	SDL_RendererFlip *tempflip = new SDL_RendererFlip();
-	textureManager->Draw(circleText, circleSrc, circleDest, *tempflip);
+	tempBallA->draw();
+	tempBallB->draw();
 	SDL_RenderPresent(renderer);
 }
 

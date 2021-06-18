@@ -4,12 +4,12 @@
 #include <SDL_ttf.h>
 #include <iostream>
 #include <vector>
+#include <cmath>
 #include "AssetManager.h"
 #include "TextureManager.h"
-
-class ColliderComponent;
-class AssetManager;
-//class UIStatistics;
+#include "Ball.h"
+#include "Collider.h"
+#include "Collision.h"
 
 class Game
 
@@ -37,10 +37,8 @@ public:
 	static SDL_Rect camera;
 	static AssetManager *assetManager;
 	static TextureManager *textureManager;
-	//CIRCLE
-	SDL_Texture *circleText;
-	SDL_Rect circleSrc;
-	SDL_Rect circleDest;
+	Ball *tempBallA;
+	Ball *tempBallB;
 	//static UIStatistics *statManager;
 	enum groupLabels : std::size_t
 	{

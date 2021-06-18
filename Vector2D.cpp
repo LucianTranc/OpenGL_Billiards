@@ -91,7 +91,7 @@ Vector2D& Vector2D::operator+=(const Vector2D& vec) {
 }
 
 
-Vector2D& Vector2D::operator*(const int& i)
+Vector2D& Vector2D::operator*(const float& i)
 {
 	this->x *= i;
 	this->y *= i;
