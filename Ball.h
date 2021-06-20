@@ -9,7 +9,9 @@ class Ball {
 
 public:
 
-    Ball(AssetManager * am, float posx, float posy);
+    Ball(AssetManager * am, float posx, float posy, int ID);
+
+    void printID();
 
     SDL_Rect srcRect;
     SDL_Rect destRect;
@@ -23,6 +25,7 @@ public:
 
     bool mousedown;
     int mousex = 0, mousey = 0;
+    int id;
 
     void draw();
     void update();

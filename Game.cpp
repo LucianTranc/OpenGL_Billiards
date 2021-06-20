@@ -75,8 +75,11 @@ void Game::loadMap()
 
 void Game::createPlayer()
 {
-	tempBallA = new Ball(assetManager, 400.0, 400.0);
-	tempBallB = new Ball(assetManager, 300.0, 400.0);
+	balls.push_back(new Ball(assetManager, 100.0, 100.0, 1));
+	balls.push_back(new Ball(assetManager, 200.0, 200.0, 2));
+	balls.push_back(new Ball(assetManager, 300.0, 300.0, 3));
+	balls.push_back(new Ball(assetManager, 400.0, 400.0, 4));
+	balls.push_back(new Ball(assetManager, 500.0, 500.0, 5));
 }
 
 void Game::setCamera()
@@ -99,11 +102,23 @@ void Game::handleEvents() {
 
 void Game::update()
 {
-	
-	tempBallA->update();
-	tempBallB->update();
 
-	std::cout<<Collision::DetectCollision(tempBallA->ballCollider, tempBallB->ballCollider)<<std::endl;
+
+	for (auto & a : balls) {
+		a->printID();
+    	for (auto & b : balls) {
+			if (a->id == b->id)
+				continue;
+			b->printID();
+			Collision::DetectCollision(a->ballCollider, b->ballCollider);
+		}
+	}
+
+	for (auto & b : balls) {
+    	b->update();
+	}
+
+	
 
 }
 
@@ -111,8 +126,11 @@ void Game::update()
 void Game::render() 
 {
 	SDL_RenderClear(renderer);
-	tempBallA->draw();
-	tempBallB->draw();
+
+	for (auto & b : balls) {
+    	b->draw();
+	}
+
 	SDL_RenderPresent(renderer);
 }
 

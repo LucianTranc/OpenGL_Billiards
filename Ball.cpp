@@ -3,8 +3,9 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Ball::Ball(AssetManager * am, float posx, float posy)
+Ball::Ball(AssetManager * am, float posx, float posy, int ID)
 {
+    id = ID;
     assetManager = am;
     position.x = posx;
     position.y = posy;
@@ -19,6 +20,11 @@ Ball::Ball(AssetManager * am, float posx, float posy)
 
     ballCollider = new Collider(this, 50, position);
 
+}
+
+void Ball::printID()
+{
+    std::cout<<id<<std::endl;
 }
 
 void Ball::draw()
@@ -49,6 +55,7 @@ void Ball::update()
         //std::cout<<"GOTCHA\n"<<std::endl;
         position.x = mousex;
         position.y = mousey;
+        
     }
 
 

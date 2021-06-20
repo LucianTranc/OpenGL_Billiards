@@ -1,5 +1,7 @@
 #pragma once
 #include "Collider.h"
+#include <SDL.h>
+#include "Game.h"
 
 class Collision
 {

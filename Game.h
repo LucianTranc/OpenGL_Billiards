@@ -37,8 +37,11 @@ public:
 	static SDL_Rect camera;
 	static AssetManager *assetManager;
 	static TextureManager *textureManager;
-	Ball *tempBallA;
-	Ball *tempBallB;
+	std::vector<Ball*> balls;
+
+	Ball* tempBallA;
+	Ball* tempBallB;
+	Ball* tempBallC;
 	//static UIStatistics *statManager;
 	enum groupLabels : std::size_t
 	{
