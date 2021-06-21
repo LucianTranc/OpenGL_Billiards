@@ -38,7 +38,7 @@ public:
 	static AssetManager *assetManager;
 	static TextureManager *textureManager;
 	std::vector<Ball*> balls;
-
+	std::vector<std::pair<Ball*,Ball*>> collisions;
 	Ball* tempBallA;
 	Ball* tempBallB;
 	Ball* tempBallC;

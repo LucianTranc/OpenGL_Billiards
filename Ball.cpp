@@ -30,57 +30,52 @@ void Ball::printID()
 void Ball::draw()
 {
     TextureManager::Draw(assetManager->GetTexture("ball"), srcRect, destRect, flip);
+    if (selectedBall)
+    {
+        SDL_SetRenderDrawColor(Game::renderer, 0, 0, 255, 255);
+        SDL_RenderDrawLine(Game::renderer, position.x, position.y, mousex, mousey);
+        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
+    }
+        
+
 }
 
 void Ball::update()
 {
-    
+    if (Game::event.type == SDL_KEYDOWN && Game::event.key.keysym.sym == SDLK_SPACE)
+    {   
+        if (abs(mousex - position.x) < 50 && abs(mousey - position.y) < 50)
+                    dragBall = true; 
+    }
+
+    if (Game::event.type == SDL_KEYUP && Game::event.key.keysym.sym == SDLK_SPACE)
+    {
+        dragBall = false;        
+    }
 
     if (Game::event.type == SDL_MOUSEBUTTONDOWN)
     {
         //std::cout<<"CLICK\n"<<std::endl;
         if (abs(mousex - position.x) < 50 && abs(mousey - position.y) < 50)
-            mousedown = true;
+            selectedBall = true;
     }
     if (Game::event.type == SDL_MOUSEBUTTONUP)
     {
-        mousedown = false;
+        if (selectedBall)
+        {
+            velocity.x = 5.0f * ((position.x) - (mousex))/100;
+            velocity.y = 5.0f * ((position.y) - (mousey))/100;
+        }
+        selectedBall = false;
     }
 
     SDL_GetMouseState(&mousex, &mousey);
-    //std::cout<<std::to_string(abs(mousex - position.x)) + ", " + std::to_string(abs(mousey - position.y))<<std::endl;
-    //std::cout<<mousedown<<std::endl;
-    if (mousedown)
+    if (dragBall)
     {
-        //std::cout<<"GOTCHA\n"<<std::endl;
         position.x = mousex;
         position.y = mousey;
         
     }
-
-
-    /*if (Game::event.type == SDL_KEYDOWN)
-    {
-
-        switch (Game::event.key.keysym.sym)
-        {
-            case SDLK_UP:
-                velocity.y = velocity.y - 0.1;
-                break;
-            case SDLK_LEFT:
-                velocity.x = velocity.x - 0.1;
-                break;
-            case SDLK_DOWN:
-                velocity.y = velocity.y + 0.1;
-                break;
-            case SDLK_RIGHT:
-                velocity.x = velocity.x + 0.1;
-                break;
-            default:
-                break;
-        }
-        
-    }*/
 
     position.x += velocity.x;
     position.y += velocity.y;
@@ -96,8 +91,6 @@ void Ball::update()
     
     if (position.y > 800)
         position.y = 0;
-    
-    //velocity = velocity * 0.01f;
 
     ballCollider->position = position;
 

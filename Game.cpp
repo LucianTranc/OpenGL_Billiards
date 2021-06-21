@@ -102,17 +102,23 @@ void Game::handleEvents() {
 
 void Game::update()
 {
-
+	collisions.clear();
 
 	for (auto & a : balls) {
-		a->printID();
+		//a->printID();
     	for (auto & b : balls) {
 			if (a->id == b->id)
 				continue;
-			b->printID();
-			Collision::DetectCollision(a->ballCollider, b->ballCollider);
+			//b->printID();
+			if (Collision::DetectCollision(a->ballCollider, b->ballCollider))
+			{
+				collisions.push_back({a,b});
+			}
+
 		}
 	}
+
+	//std::cout<<collisions.size()<<std::endl;
 
 	for (auto & b : balls) {
     	b->update();
@@ -130,6 +136,12 @@ void Game::render()
 	for (auto & b : balls) {
     	b->draw();
 	}
+	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+	for (auto& c : collisions) {
+        SDL_RenderDrawLine(renderer, c.first->position.x, c.first->position.y, c.second->position.x, c.second->position.y);
+	}
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+
 
 	SDL_RenderPresent(renderer);
 }

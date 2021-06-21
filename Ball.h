@@ -23,7 +23,8 @@ public:
 
     Collider *ballCollider;
 
-    bool mousedown;
+    bool dragBall;
+    bool selectedBall = false;
     int mousex = 0, mousey = 0;
     int id;
 
