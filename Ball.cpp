@@ -3,10 +3,9 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Ball::Ball(AssetManager * am, float posx, float posy, int ID)
-{
+Ball::Ball(float posx, float posy, int ID) {
+
     id = ID;
-    assetManager = am;
     position.x = posx;
     position.y = posy;
     destRect.h = 100;
@@ -18,63 +17,29 @@ Ball::Ball(AssetManager * am, float posx, float posy, int ID)
 	srcRect.x = 0;
 	srcRect.y = 0;
 
-    ballCollider = new Collider(this, 50, position);
-
 }
 
-void Ball::printID()
-{
+void Ball::printID() {
+
     std::cout<<id<<std::endl;
-}
-
-void Ball::draw()
-{
-    TextureManager::Draw(assetManager->GetTexture("ball"), srcRect, destRect, flip);
-    if (selectedBall)
-    {
-        SDL_SetRenderDrawColor(Game::renderer, 0, 0, 255, 255);
-        SDL_RenderDrawLine(Game::renderer, position.x, position.y, mousex, mousey);
-        SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-    }
-        
 
 }
 
-void Ball::update()
-{
-    if (Game::event.type == SDL_KEYDOWN && Game::event.key.keysym.sym == SDLK_SPACE)
-    {   
-        if (abs(mousex - position.x) < 50 && abs(mousey - position.y) < 50)
-                    dragBall = true; 
-    }
+void Ball::draw() {
 
-    if (Game::event.type == SDL_KEYUP && Game::event.key.keysym.sym == SDLK_SPACE)
-    {
-        dragBall = false;        
-    }
+    TextureManager::Draw(Game::assetManager->GetTexture("ball"), srcRect, destRect, flip);
+    
+}
 
-    if (Game::event.type == SDL_MOUSEBUTTONDOWN)
-    {
-        //std::cout<<"CLICK\n"<<std::endl;
-        if (abs(mousex - position.x) < 50 && abs(mousey - position.y) < 50)
-            selectedBall = true;
-    }
-    if (Game::event.type == SDL_MOUSEBUTTONUP)
-    {
-        if (selectedBall)
-        {
-            velocity.x = 5.0f * ((position.x) - (mousex))/100;
-            velocity.y = 5.0f * ((position.y) - (mousey))/100;
-        }
-        selectedBall = false;
-    }
+void Ball::update() {
+    
+    velocity.x = velocity.x * 0.99;
+    velocity.y = velocity.y * 0.99;
 
-    SDL_GetMouseState(&mousex, &mousey);
-    if (dragBall)
+    if (abs(velocity.x*velocity.x + velocity.y*velocity.y) < 0.01)
     {
-        position.x = mousex;
-        position.y = mousey;
-        
+        velocity.x = 0;
+        velocity.y = 0;
     }
 
     position.x += velocity.x;
@@ -92,10 +57,7 @@ void Ball::update()
     if (position.y > 800)
         position.y = 0;
 
-    ballCollider->position = position;
-
     destRect.x = position.x - 50;
     destRect.y = position.y - 50;
-
     
 }

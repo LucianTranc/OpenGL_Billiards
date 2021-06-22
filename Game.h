@@ -8,7 +8,7 @@
 #include "AssetManager.h"
 #include "TextureManager.h"
 #include "Ball.h"
-#include "Collider.h"
+#include "BallManager.h"
 #include "Collision.h"
 
 class Game
@@ -23,8 +23,7 @@ public:
 	
 	void loadAssets();
 	void loadMap();
-	void createPlayer();
-	void setCamera();
+	void createBalls();
 	void handleEvents();
 	void update();
 	bool running() { return isRunning; }
@@ -37,22 +36,10 @@ public:
 	static SDL_Rect camera;
 	static AssetManager *assetManager;
 	static TextureManager *textureManager;
-	std::vector<Ball*> balls;
-	std::vector<std::pair<Ball*,Ball*>> collisions;
-	Ball* tempBallA;
-	Ball* tempBallB;
-	Ball* tempBallC;
-	//static UIStatistics *statManager;
-	enum groupLabels : std::size_t
-	{
-		groupMap,
-		groupPlayers,
-		groupColliders,
-		groupProjectiles,
-		groupUILables
-	};
+	static BallManager *ballManager;
+
 private:
-	//int cnt;
+
 	SDL_Window* window;
 
 };

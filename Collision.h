@@ -1,10 +1,11 @@
 #pragma once
-#include "Collider.h"
+#include "Ball.h"
 #include <SDL.h>
 #include "Game.h"
 
 class Collision
 {
 public:
-    static bool DetectCollision(Collider * c1, Collider * c2);
+    static bool DetectCollision(Ball * b1, Ball * b2);
+    static void DynamicCollision(Ball * b1, Ball* b2);
 };
