@@ -3,19 +3,20 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Ball::Ball(float posx, float posy, int ID) {
+Ball::Ball(float posx, float posy, float r, int ID) {
 
     id = ID;
-    position.x = posx;
-    position.y = posy;
-    destRect.h = 100;
-	destRect.w = 100;
+    destRect.h = r*2;
+	destRect.w = r*2;
 	destRect.x = position.x;
 	destRect.y = position.y;
 	srcRect.h = 900;
 	srcRect.w = 900;
 	srcRect.x = 0;
 	srcRect.y = 0;
+    position.x = posx;
+    position.y = posy;
+    radius = r;
 
 }
 
@@ -27,7 +28,7 @@ void Ball::printID() {
 
 void Ball::draw() {
 
-    TextureManager::Draw(Game::assetManager->GetTexture("ball"), srcRect, destRect, flip);
+    TextureManager::Draw(Game::assetManager->GetTexture("pinkball"), srcRect, destRect, flip);
     
 }
 
@@ -46,18 +47,18 @@ void Ball::update() {
     position.y += velocity.y;
 
     if (position.x < 0)
-        position.x = 800;
+        position.x = Game::screenSize->x;
     
-    if (position.x > 800)
+    if (position.x > Game::screenSize->x)
         position.x = 0;
 
     if (position.y < 0)
-        position.y = 800;
+        position.y = Game::screenSize->y;
     
-    if (position.y > 800)
+    if (position.y > Game::screenSize->y)
         position.y = 0;
 
-    destRect.x = position.x - 50;
-    destRect.y = position.y - 50;
+    destRect.x = position.x - radius;
+    destRect.y = position.y - radius;
     
 }

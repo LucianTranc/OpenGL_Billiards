@@ -8,7 +8,7 @@ class Ball {
 
 public:
 
-    Ball(float posx, float posy, int ID);
+    Ball(float posx, float posy, float r, int ID);
 
     void printID();
     void draw();
@@ -19,6 +19,7 @@ public:
     SDL_RendererFlip flip;
     Vector2D position;
     Vector2D velocity;
+    float radius;
     int id;
     float mass = 100;
 

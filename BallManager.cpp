@@ -25,9 +25,9 @@ void BallManager::drawBalls() {
 
 }
 
-void BallManager::AddBall(float px, float py, int id) {
+void BallManager::AddBall(float px, float py, float r, int id) {
 
-    balls.push_back(new Ball(px, py, id));
+    balls.push_back(new Ball(px, py, r, id));
 
 }
 
@@ -64,7 +64,7 @@ void BallManager::update() {
 
     if (Game::event.type == SDL_KEYDOWN && Game::event.key.keysym.sym == SDLK_SPACE) {   
         for (auto& b : balls) {
-            if (abs(mousex - b->position.x) < 50 && abs(mousey - b->position.y) < 50) {
+            if (abs(mousex - b->position.x) < b->radius && abs(mousey - b->position.y) < b->radius) {
                 selectedDragBall = b;
                 break;
             }
@@ -77,7 +77,7 @@ void BallManager::update() {
 
     if (Game::event.type == SDL_MOUSEBUTTONDOWN) {
         for (auto& b : balls) {
-            if (abs(mousex - b->position.x) < 50 && abs(mousey - b->position.y) < 50) {
+            if (abs(mousex - b->position.x) < b->radius && abs(mousey - b->position.y) < b->radius) {
                 selectedHitBall = b;
                 break;
             }

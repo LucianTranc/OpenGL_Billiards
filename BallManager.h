@@ -12,7 +12,7 @@ class BallManager {
 
 public:
 
-    void AddBall(float px, float py, int id);
+    void AddBall(float px, float py, float r, int id);
     void drawGizmos();
     void drawBalls();
     void update();

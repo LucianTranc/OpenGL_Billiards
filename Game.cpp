@@ -5,11 +5,11 @@
 
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-SDL_Rect Game::camera = { 0, 0, 800*2, 640*2 };
 AssetManager* Game::assetManager = new AssetManager();
 TextureManager* Game::textureManager = new TextureManager();
 BallManager* Game::ballManager = new BallManager();
 bool Game::isRunning = false;
+Vector2D *Game::screenSize = new Vector2D();
 
 Game::Game() {
 
@@ -43,6 +43,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	if (TTF_Init() == -1)
 		std::cout << "Error : SDL_TTF" << std::endl;
 
+	screenSize->x = width;
+	screenSize->y = height;
+
 	loadAssets();
 	
 	//loadMap();
@@ -53,7 +56,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 void Game::loadAssets() {
 
-	assetManager->AddTexture("ball", "assets/projectile2.png", renderer);
+	assetManager->AddTexture("pinkball", "assets/projectile2.png", renderer);
+	assetManager->AddTexture("blackball", "assets/blackcircle.png", renderer);
 	assetManager->AddFont("arial", "assets/arial.ttf", 16);
 
 }
@@ -64,11 +68,19 @@ void Game::loadMap() {
 
 void Game::createBalls() {
 
-	ballManager->AddBall(100.0, 100.0, 1);
-	ballManager->AddBall(200.0, 200.0, 2);
-	ballManager->AddBall(300.0, 300.0, 3);
-	ballManager->AddBall(400.0, 400.0, 4);
-	ballManager->AddBall(500.0, 500.0, 5);
+	ballManager->AddBall(100.0, 100.0, 25.0, 1);
+	ballManager->AddBall(200.0, 100.0, 50.0, 2);
+	ballManager->AddBall(300.0, 100.0, 25.0, 3);
+	ballManager->AddBall(400.0, 100.0, 25.0, 4);
+	ballManager->AddBall(500.0, 100.0, 25.0, 5);
+	ballManager->AddBall(600.0, 100.0, 25.0, 6);
+	ballManager->AddBall(100.0, 300.0, 25.0, 7);
+	ballManager->AddBall(200.0, 300.0, 25.0, 8);
+	ballManager->AddBall(300.0, 300.0, 25.0, 9);
+	ballManager->AddBall(400.0, 300.0, 25.0, 10);
+	ballManager->AddBall(500.0, 300.0, 25.0, 11);
+	ballManager->AddBall(600.0, 300.0, 25.0, 12);
+	ballManager->AddBall(100.0, 500.0, 25.0, 13);
 
 }
 
