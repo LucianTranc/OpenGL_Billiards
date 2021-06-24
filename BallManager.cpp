@@ -7,7 +7,7 @@
 void BallManager::drawGizmos() {
 
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 255, 255);
-	for (auto& c : collisions) {
+	for (auto& c : ballCollisions) {
         SDL_RenderDrawLine(Game::renderer, c.first->position.x, c.first->position.y, c.second->position.x, c.second->position.y);
 	}
     if (selectedHitBall) {
@@ -25,15 +25,29 @@ void BallManager::drawBalls() {
 
 }
 
+void BallManager::drawEdges() {
+
+    for (auto & e : edges) {
+    	e->draw();
+	}
+
+}
+
 void BallManager::AddBall(float px, float py, float r, int id) {
 
     balls.push_back(new Ball(px, py, r, id));
 
 }
 
+void BallManager::AddEdge(float px1, float py1, float px2, float py2, float r, int id) {
+
+    edges.push_back(new Edge(px1, py1, px2, py2, r, id));
+
+}
+
 void BallManager::update() {
 
-    collisions.clear();
+    ballCollisions.clear();
 	for (auto & a : balls) {
 		//a->printID();
     	for (auto & b : balls) {
@@ -44,17 +58,29 @@ void BallManager::update() {
 				bool duplicate = false;
 				std::pair<Ball*, Ball*> tempPair;
 				tempPair = {b,a};
-				for (auto& c : collisions) {
+				for (auto& c : ballCollisions) {
 					if (c == tempPair)
 						duplicate = true;
 				}
 				if (!duplicate)
-					collisions.push_back({a,b});
+					ballCollisions.push_back({a,b});
 			}
 		}
 	}
 
-    for (auto& c : collisions) {
+    /* for (auto & b : balls) {
+		//b->printID();
+    	for (auto & e : edges) {
+			//e->printID();
+			if (Collision::DetectCollisionEdge(b, e)) {
+				edgeCollisions.push_back({b,e});
+			}
+		}
+	} */
+
+    std::cout<<Collision::DetectCollisionEdge(balls[0], edges[0])<<std::endl;
+
+    for (auto& c : ballCollisions) {
         Collision::DynamicCollision(c.first, c.second);
 	}
 

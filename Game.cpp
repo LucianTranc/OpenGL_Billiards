@@ -68,7 +68,7 @@ void Game::loadMap() {
 
 void Game::createBalls() {
 
-	ballManager->AddBall(100.0, 100.0, 25.0, 1);
+	ballManager->AddBall(100.0, 100.0, 50.0, 1);
 	ballManager->AddBall(200.0, 100.0, 50.0, 2);
 	ballManager->AddBall(300.0, 100.0, 25.0, 3);
 	ballManager->AddBall(400.0, 100.0, 25.0, 4);
@@ -81,6 +81,8 @@ void Game::createBalls() {
 	ballManager->AddBall(500.0, 300.0, 25.0, 11);
 	ballManager->AddBall(600.0, 300.0, 25.0, 12);
 	ballManager->AddBall(100.0, 500.0, 25.0, 13);
+
+	ballManager->AddEdge(200.0, 400.0, 400.0, 500.0, 25.0, 14);
 
 }
 
@@ -109,6 +111,7 @@ void Game::render() {
 	SDL_RenderClear(renderer);
 
 	ballManager->drawBalls();
+	ballManager->drawEdges();
 	ballManager->drawGizmos();
 
 	SDL_RenderPresent(renderer);

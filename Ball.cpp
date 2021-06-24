@@ -6,17 +6,19 @@
 Ball::Ball(float posx, float posy, float r, int ID) {
 
     id = ID;
+    position.x = posx;
+    position.y = posy;
+    radius = r;
+
     destRect.h = r*2;
 	destRect.w = r*2;
-	destRect.x = position.x;
-	destRect.y = position.y;
+	destRect.x = position.x - radius;
+	destRect.y = position.y - radius;
+    
 	srcRect.h = 900;
 	srcRect.w = 900;
 	srcRect.x = 0;
 	srcRect.y = 0;
-    position.x = posx;
-    position.y = posy;
-    radius = r;
 
 }
 

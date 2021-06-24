@@ -10,6 +10,7 @@
 #include "Ball.h"
 #include "BallManager.h"
 #include "Collision.h"
+#include "Edge.h"
 
 class Game
 
@@ -37,6 +38,8 @@ public:
 	static TextureManager *textureManager;
 	static BallManager *ballManager;
 	static Vector2D *screenSize;
+
+	Edge* testEdge;
 
 private:
 

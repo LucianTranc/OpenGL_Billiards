@@ -39,3 +39,52 @@ bool Collision::DetectCollision(Ball * b1, Ball * b2) {
         return false;
 
 };
+
+bool Collision::DetectCollisionEdge(Ball * b, Edge * e) {
+
+    Vector2D A;
+    A.x = e->position1.x;
+    A.y = e->position1.y;
+    Vector2D B;
+    B.x = e->position2.x;
+    B.y = e->position2.y;
+    Vector2D C;
+    C.x = b->position.x;
+    C.y = b->position.y;
+    Vector2D v1;
+    v1.x = C.x - A.x;
+    v1.y = C.y - A.y;
+    Vector2D v2;
+    v2.x = B.x - A.x;
+    v2.y = B.y - A.y;
+
+    float distanceSq = ((B.x - A.x)*(B.x - A.x) + (B.y - A.y)*(B.y - A.y));
+    float t = (v1.x * v2.x + v1.y * v2.y)/distanceSq;
+
+    if (0 < t && t <=1) {
+        float denominator = sqrt((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y));
+        float normal = abs((B.x-A.x)*(A.y-C.y) - (A.x-C.x)*(B.y-A.y))/denominator;
+        if (normal < b->radius + e->radius)
+            return true;
+    }
+    else if (t < 0) {
+        float distance1x = e->position1.x - b->position.x;
+        float distance1y = e->position1.y - b->position.y;
+        float distance1 = sqrt(pow(distance1x, 2) + pow(distance1y, 2));
+        if (distance1 < b->radius + e->radius)
+            return true;
+    }
+    else {
+
+        float distance2x = e->position2.x - b->position.x;
+        float distance2y = e->position2.y - b->position.y;
+        float distance2 = sqrt(pow(distance2x, 2) + pow(distance2y, 2));
+        if (distance2 < b->radius + e->radius)
+            return true;
+
+    }
+
+
+    return false;
+
+};

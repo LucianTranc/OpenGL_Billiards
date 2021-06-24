@@ -4,9 +4,9 @@ INC_PATH = -I /Library/Frameworks/SDL2.framework/Headers -I /Library/Frameworks/
 LDFLAGS = -l SDL2-2.0.0 -l SDL2_image-2.0.0 -l SDL2_ttf-2.0.0
 
 trancengine: main.o
-	$(CC) $(CFLAGS) $(INC_PATH) $(LDFLAGS) bin/main.o bin/Game.o bin/Vector2D.o bin/AssetManager.o bin/TextureManager.o bin/Ball.o bin/Collision.o bin/BallManager.o -o play
+	$(CC) $(CFLAGS) $(INC_PATH) $(LDFLAGS) bin/main.o bin/Game.o bin/Vector2D.o bin/AssetManager.o bin/TextureManager.o bin/Ball.o bin/Collision.o bin/BallManager.o bin/Edge.o -o play
 
-main.o: main.cpp bin/Game.o bin/Vector2D.o bin/AssetManager.o bin/TextureManager.o bin/Ball.o bin/Collision.o bin/BallManager.o
+main.o: main.cpp bin/Game.o bin/Vector2D.o bin/AssetManager.o bin/TextureManager.o bin/Ball.o bin/Collision.o bin/BallManager.o bin/Edge.o
 	$(CC) $(CFLAGS) $(INC_PATH) main.cpp -c -o bin/main.o
 
 bin/Game.o: Game.cpp Game.h
@@ -29,6 +29,9 @@ bin/Collision.o: Collision.cpp Collision.h
 
 bin/BallManager.o: BallManager.cpp BallManager.h
 	$(CC) $(CFLAGS) $(INC_PATH) BallManager.cpp -c -o bin/BallManager.o
+
+bin/Edge.o: Edge.cpp Edge.h
+	$(CC) $(CFLAGS) $(INC_PATH) Edge.cpp -c -o bin/Edge.o
 
 clean :
 	-rm *.o bin/*.o play
