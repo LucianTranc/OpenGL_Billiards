@@ -11,6 +11,7 @@ public:
     Ball(float posx, float posy, float r, int ID);
 
     void printID();
+    void printBall();
     void draw();
     void update();
 

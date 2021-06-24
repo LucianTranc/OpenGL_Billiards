@@ -6,7 +6,7 @@ class Edge {
 
 public:
 
-    Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r, int ID);
+    Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r);
 
     void printID();
     void draw();
@@ -19,6 +19,5 @@ public:
     Vector2D position1;
     Vector2D position2;
     float radius;
-    int id;
 
 };

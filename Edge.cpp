@@ -3,9 +3,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r, int ID) {
-
-    id = ID;
+Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r) {
 
     position1.x = pos1x;
     position1.y = pos1y;
@@ -31,11 +29,6 @@ Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r, int ID) 
 
 }
 
-void Edge::printID() {
-
-    std::cout<<id<<std::endl;
-
-}
 
 void Edge::draw() {
 
@@ -51,7 +44,7 @@ void Edge::draw() {
     SDL_RenderDrawLine(Game::renderer, position1.x + nx * radius, position1.y + ny * radius, position2.x + nx * radius, position2.y + ny * radius);
     SDL_RenderDrawLine(Game::renderer, position1.x - nx * radius, position1.y - ny * radius, position2.x - nx * radius, position2.y - ny * radius);
     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
-    
+
 }
 
 void Edge::update() {

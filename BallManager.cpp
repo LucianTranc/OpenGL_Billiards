@@ -39,15 +39,17 @@ void BallManager::AddBall(float px, float py, float r, int id) {
 
 }
 
-void BallManager::AddEdge(float px1, float py1, float px2, float py2, float r, int id) {
+void BallManager::AddEdge(float px1, float py1, float px2, float py2, float r) {
 
-    edges.push_back(new Edge(px1, py1, px2, py2, r, id));
+    edges.push_back(new Edge(px1, py1, px2, py2, r));
 
 }
 
 void BallManager::update() {
 
     ballCollisions.clear();
+    edgeCollisions.clear();
+
 	for (auto & a : balls) {
 		//a->printID();
     	for (auto & b : balls) {
@@ -68,19 +70,30 @@ void BallManager::update() {
 		}
 	}
 
-    /* for (auto & b : balls) {
+    for (auto& c : ballCollisions) {
+        Collision::DynamicCollision(c.first, c.second);
+	}
+
+    for (auto & b : balls) {
 		//b->printID();
     	for (auto & e : edges) {
 			//e->printID();
-			if (Collision::DetectCollisionEdge(b, e)) {
-				edgeCollisions.push_back({b,e});
+            Vector2D* collisionPoint = Collision::DetectCollisionEdge(b, e);
+			if (collisionPoint) {
+                Ball* fakeBall = new Ball(collisionPoint->x, collisionPoint->y, e->radius, -1);
+                fakeBall->velocity.x = -b->velocity.x;
+                fakeBall->velocity.y = -b->velocity.y;
+                //fakeBall->mass = 1000000;
+				edgeCollisions.push_back({b,fakeBall});
 			}
 		}
-	} */
+	} 
 
-    std::cout<<Collision::DetectCollisionEdge(balls[0], edges[0])<<std::endl;
+    //Collision::DetectCollisionEdge(balls[0], edges[0]);
 
-    for (auto& c : ballCollisions) {
+    
+
+    for (auto& c : edgeCollisions) {
         Collision::DynamicCollision(c.first, c.second);
 	}
 

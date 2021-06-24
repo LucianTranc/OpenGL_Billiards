@@ -68,21 +68,26 @@ void Game::loadMap() {
 
 void Game::createBalls() {
 
-	ballManager->AddBall(100.0, 100.0, 50.0, 1);
-	ballManager->AddBall(200.0, 100.0, 50.0, 2);
-	ballManager->AddBall(300.0, 100.0, 25.0, 3);
-	ballManager->AddBall(400.0, 100.0, 25.0, 4);
-	ballManager->AddBall(500.0, 100.0, 25.0, 5);
-	ballManager->AddBall(600.0, 100.0, 25.0, 6);
-	ballManager->AddBall(100.0, 300.0, 25.0, 7);
-	ballManager->AddBall(200.0, 300.0, 25.0, 8);
-	ballManager->AddBall(300.0, 300.0, 25.0, 9);
-	ballManager->AddBall(400.0, 300.0, 25.0, 10);
-	ballManager->AddBall(500.0, 300.0, 25.0, 11);
-	ballManager->AddBall(600.0, 300.0, 25.0, 12);
-	ballManager->AddBall(100.0, 500.0, 25.0, 13);
+	ballManager->AddBall(100.0, 100.0, 15.0, 1);
+	ballManager->AddBall(200.0, 100.0, 15.0, 2);
+	ballManager->AddBall(300.0, 100.0, 15.0, 3);
+	ballManager->AddBall(400.0, 100.0, 15.0, 4);
+	ballManager->AddBall(500.0, 100.0, 15.0, 5);
+	ballManager->AddBall(600.0, 100.0, 15.0, 6);
+	ballManager->AddBall(100.0, 300.0, 15.0, 7);
+	ballManager->AddBall(200.0, 300.0, 15.0, 8);
+	ballManager->AddBall(300.0, 300.0, 15.0, 9);
+	ballManager->AddBall(400.0, 300.0, 15.0, 10);
+	ballManager->AddBall(500.0, 300.0, 15.0, 11);
+	ballManager->AddBall(600.0, 300.0, 15.0, 12);
+	ballManager->AddBall(100.0, 500.0, 15.0, 13);
 
-	ballManager->AddEdge(200.0, 400.0, 400.0, 500.0, 25.0, 14);
+	ballManager->AddEdge(50.0, 0.0, 510.0, 0.0, 10.0);
+	ballManager->AddEdge(600.0, 0.0, 1160.0, 0.0, 10.0);
+	ballManager->AddEdge(50.0, 610.0, 510.0, 610.0, 10.0);
+	ballManager->AddEdge(600.0, 610.0, 1160.0, 610.0, 10.0);
+	ballManager->AddEdge(0.0, 50.0, 0.0, 560.0, 10.0);
+	ballManager->AddEdge(1210.0, 50.0, 1210.0, 560.0, 10.0);
 
 }
 

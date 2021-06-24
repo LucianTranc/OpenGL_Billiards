@@ -7,6 +7,7 @@ class Collision
 {
 public:
     static bool DetectCollision(Ball * b1, Ball * b2);
-    static bool DetectCollisionEdge(Ball * b, Edge * e);
+    static Vector2D* DetectCollisionEdge(Ball * b, Edge * e);
     static void DynamicCollision(Ball * b1, Ball* b2);
+
 };

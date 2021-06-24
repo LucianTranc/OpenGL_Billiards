@@ -14,11 +14,22 @@ Ball::Ball(float posx, float posy, float r, int ID) {
 	destRect.w = r*2;
 	destRect.x = position.x - radius;
 	destRect.y = position.y - radius;
-    
+
 	srcRect.h = 900;
 	srcRect.w = 900;
 	srcRect.x = 0;
 	srcRect.y = 0;
+
+}
+
+void Ball::printBall() {
+    std::cout<<"Ball"<<std::endl;
+    std::cout<<id<<std::endl;
+    std::cout<<position.x<<std::endl;
+    std::cout<<position.y<<std::endl;
+    std::cout<<velocity.x<<std::endl;
+    std::cout<<velocity.y<<std::endl;
+    std::cout<<mass<<std::endl;
 
 }
 

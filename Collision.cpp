@@ -40,7 +40,7 @@ bool Collision::DetectCollision(Ball * b1, Ball * b2) {
 
 };
 
-bool Collision::DetectCollisionEdge(Ball * b, Edge * e) {
+Vector2D* Collision::DetectCollisionEdge(Ball * b, Edge * e) {
 
     Vector2D A;
     A.x = e->position1.x;
@@ -64,27 +64,51 @@ bool Collision::DetectCollisionEdge(Ball * b, Edge * e) {
     if (0 < t && t <=1) {
         float denominator = sqrt((B.x-A.x)*(B.x-A.x)+(B.y-A.y)*(B.y-A.y));
         float normal = abs((B.x-A.x)*(A.y-C.y) - (A.x-C.x)*(B.y-A.y))/denominator;
-        if (normal < b->radius + e->radius)
-            return true;
+        if (normal < b->radius + e->radius) {
+            Vector2D closePoint;
+            closePoint.x = A.x + t*(B.x - A.x);
+            closePoint.y = A.y + t*(B.y - A.y);
+            float overlap = (-(normal - b->radius - e->radius));
+            float distancex = b->position.x - closePoint.x;
+            float distancey = b->position.y - closePoint.y;
+            b->position.x += 1.0f * overlap * (distancex) / normal;
+            b->position.y += 1.0f * overlap * (distancey) / normal;
+            return new Vector2D(closePoint.x, closePoint.y);
+        }
     }
     else if (t < 0) {
         float distance1x = e->position1.x - b->position.x;
         float distance1y = e->position1.y - b->position.y;
         float distance1 = sqrt(pow(distance1x, 2) + pow(distance1y, 2));
-        if (distance1 < b->radius + e->radius)
-            return true;
+        if (distance1 < b->radius + e->radius) {
+            float distancex = b->position.x - e->position1.x;
+            float distancey = b->position.y - e->position1.y;
+            float distance = sqrt(pow(distancex, 2) + pow(distancey, 2));
+            float overlap = (-(distance - b->radius - e->radius));
+            b->position.x += 1.0f * overlap * (distancex) / distance;
+            b->position.y += 1.0f * overlap * (distancey) / distance;
+            return new Vector2D(e->position1.x, e->position1.y);
+        }
+
     }
     else {
 
         float distance2x = e->position2.x - b->position.x;
         float distance2y = e->position2.y - b->position.y;
         float distance2 = sqrt(pow(distance2x, 2) + pow(distance2y, 2));
-        if (distance2 < b->radius + e->radius)
-            return true;
+        if (distance2 < b->radius + e->radius) {
+            float distancex = b->position.x - e->position2.x;
+            float distancey = b->position.y - e->position2.y;
+            float distance = sqrt(pow(distancex, 2) + pow(distancey, 2));
+            float overlap = (-(distance - b->radius - e->radius));
+            b->position.x += 1.0f * overlap * (distancex) / distance;
+            b->position.y += 1.0f * overlap * (distancey) / distance;
+            return new Vector2D(e->position2.x, e->position2.y);
+        }
 
     }
 
 
-    return false;
+    return nullptr;
 
 };
