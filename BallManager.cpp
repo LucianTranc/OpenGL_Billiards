@@ -25,6 +25,14 @@ void BallManager::drawBalls() {
 
 }
 
+void BallManager::drawHoles() {
+
+    for (auto & h : holes) {
+    	h->draw();
+	}
+
+}
+
 void BallManager::drawEdges() {
 
     for (auto & e : edges) {
@@ -45,6 +53,11 @@ void BallManager::AddEdge(float px1, float py1, float px2, float py2, float r) {
 
 }
 
+void BallManager::AddHole(float px, float py, float r) {
+
+    holes.push_back(new Hole(px, py, r));
+
+}
 void BallManager::update() {
 
     ballCollisions.clear();
@@ -89,12 +102,22 @@ void BallManager::update() {
 		}
 	} 
 
-    //Collision::DetectCollisionEdge(balls[0], edges[0]);
-
-    
-
     for (auto& c : edgeCollisions) {
         Collision::DynamicCollision(c.first, c.second);
+	}
+
+    int ballindex = 0;
+    for (auto & b : balls) {
+		//a->printID();
+    	for (auto & h : holes) {
+			//b->printID();
+			if (Collision::DetectCollisionHole(b, h)) {
+                balls.erase(balls.begin() + ballindex);
+                break;
+			}
+            
+		}
+        ballindex++;
 	}
 
     for (auto& b : balls) {

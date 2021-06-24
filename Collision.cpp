@@ -40,6 +40,19 @@ bool Collision::DetectCollision(Ball * b1, Ball * b2) {
 
 };
 
+bool Collision::DetectCollisionHole(Ball * b, Hole * h) {
+    
+    float distancex = b->position.x - h->position.x;
+    float distancey = b->position.y - h->position.y;
+    float distance = sqrt(pow(distancex, 2) + pow(distancey, 2));
+
+    if (abs(distance) < b->radius + h->radius)
+        return true;
+    else 
+        return false;
+
+};
+
 Vector2D* Collision::DetectCollisionEdge(Ball * b, Edge * e) {
 
     Vector2D A;

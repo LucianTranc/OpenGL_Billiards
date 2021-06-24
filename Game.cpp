@@ -57,7 +57,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 void Game::loadAssets() {
 
 	assetManager->AddTexture("pinkball", "assets/projectile2.png", renderer);
-	assetManager->AddTexture("blackball", "assets/blackcircle.png", renderer);
+	assetManager->AddTexture("blackball", "assets/projectile3.png", renderer);
 	assetManager->AddFont("arial", "assets/arial.ttf", 16);
 
 }
@@ -82,12 +82,34 @@ void Game::createBalls() {
 	ballManager->AddBall(600.0, 300.0, 15.0, 12);
 	ballManager->AddBall(100.0, 500.0, 15.0, 13);
 
-	ballManager->AddEdge(50.0, 0.0, 510.0, 0.0, 10.0);
-	ballManager->AddEdge(600.0, 0.0, 1160.0, 0.0, 10.0);
-	ballManager->AddEdge(50.0, 610.0, 510.0, 610.0, 10.0);
-	ballManager->AddEdge(600.0, 610.0, 1160.0, 610.0, 10.0);
-	ballManager->AddEdge(0.0, 50.0, 0.0, 560.0, 10.0);
-	ballManager->AddEdge(1210.0, 50.0, 1210.0, 560.0, 10.0);
+	ballManager->AddEdge(80.0, 30.0, 540.0, 30.0, 10.0);
+	ballManager->AddEdge(630.0, 30.0, 1190.0, 30.0, 10.0);
+	ballManager->AddEdge(80.0, 640.0, 540.0, 640.0, 10.0);
+	ballManager->AddEdge(630.0, 640.0, 1190.0, 640.0, 10.0);
+	ballManager->AddEdge(30.0, 80.0, 30.0, 590.0, 10.0);
+	ballManager->AddEdge(1240.0, 80.0, 1240.0, 590.0, 10.0);
+
+	ballManager->AddEdge(50.0, 0.0, 80.0, 30.0, 10.0);
+	ballManager->AddEdge(0.0, 50.0, 30.0, 80.0, 10.0);
+	ballManager->AddEdge(540.0, 30.0, 550.0, 0.0, 10.0);
+	ballManager->AddEdge(630.0, 30.0, 620.0, 0.0, 10.0);
+	ballManager->AddEdge(1190.0, 30.0, 1220.0, 0.0, 10.0);
+	ballManager->AddEdge(1240.0, 80.0, 1270.0, 50.0, 10.0);
+	ballManager->AddEdge(1240.0, 590.0, 1270.0, 620.0, 10.0);
+	ballManager->AddEdge(1190.0, 640.0, 1220.0, 670.0, 10.0);
+	ballManager->AddEdge(630.0, 640.0, 620.0, 670.0, 10.0);
+	ballManager->AddEdge(540.0, 640.0, 550.0, 670.0, 10.0);
+	ballManager->AddEdge(80.0, 640.0, 50.0, 670.0, 10.0);
+	ballManager->AddEdge(30.0, 590.0, 0.0, 620.0, 10.0);
+
+
+	ballManager->AddHole(35.0, 35.0, 22);
+	ballManager->AddHole(35.0, 635.0, 22);
+	ballManager->AddHole(1235.0, 635.0, 22);
+	ballManager->AddHole(1235.0, 35.0, 22);
+	ballManager->AddHole(585.0, 18.0, 22);
+	ballManager->AddHole(585.0, 653.0, 22);
+
 
 }
 
@@ -117,6 +139,7 @@ void Game::render() {
 
 	ballManager->drawBalls();
 	ballManager->drawEdges();
+	ballManager->drawHoles();
 	ballManager->drawGizmos();
 
 	SDL_RenderPresent(renderer);
