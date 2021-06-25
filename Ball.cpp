@@ -45,12 +45,12 @@ void Ball::draw() {
     
 }
 
-void Ball::update() {
+void Ball::updatePhysics() {
     
-    velocity.x = velocity.x * 0.99;
-    velocity.y = velocity.y * 0.99;
+    velocity.x = velocity.x * 0.997;
+    velocity.y = velocity.y * 0.997;
 
-    if (abs(velocity.x*velocity.x + velocity.y*velocity.y) < 0.01)
+    if (abs(velocity.x*velocity.x + velocity.y*velocity.y) < 0.0001)
     {
         velocity.x = 0;
         velocity.y = 0;
@@ -58,6 +58,10 @@ void Ball::update() {
 
     position.x += velocity.x;
     position.y += velocity.y;
+    
+}
+
+void Ball::update() {
 
     if (position.x < 0)
         position.x = Game::screenSize->x;

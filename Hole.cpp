@@ -29,7 +29,7 @@ void Hole::printHole() {
 
 void Hole::draw() {
 
-    TextureManager::Draw(Game::assetManager->GetTexture("blackball"), srcRect, destRect, flip);
+    TextureManager::Draw(Game::assetManager->GetTexture("pinkball"), srcRect, destRect, flip);
     
 }
 

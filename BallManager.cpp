@@ -58,7 +58,8 @@ void BallManager::AddHole(float px, float py, float r) {
     holes.push_back(new Hole(px, py, r));
 
 }
-void BallManager::update() {
+
+void BallManager::updatePhysics() {
 
     ballCollisions.clear();
     edgeCollisions.clear();
@@ -121,6 +122,14 @@ void BallManager::update() {
 	}
 
     for (auto& b : balls) {
+        b->updatePhysics();
+    }
+
+}
+
+void BallManager::update() {
+
+    for (auto& b : balls) {
         b->update();
     }
 
@@ -148,8 +157,8 @@ void BallManager::update() {
     }
     if (Game::event.type == SDL_MOUSEBUTTONUP) {
         if (selectedHitBall) {
-            selectedHitBall->velocity.x = 5.0f * ((selectedHitBall->position.x) - (mousex))/100;
-            selectedHitBall->velocity.y = 5.0f * ((selectedHitBall->position.y) - (mousey))/100;
+            selectedHitBall->velocity.x = 2.0f * ((selectedHitBall->position.x) - (mousex))/100;
+            selectedHitBall->velocity.y = 2.0f * ((selectedHitBall->position.y) - (mousey))/100;
         }
         selectedHitBall = nullptr;
     }

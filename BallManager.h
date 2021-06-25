@@ -21,6 +21,7 @@ public:
     void drawBalls();
     void drawHoles();
     void drawEdges();
+    void updatePhysics();
     void update();
 
     AssetManager *assetManager;

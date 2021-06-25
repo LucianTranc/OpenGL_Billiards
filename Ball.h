@@ -14,6 +14,7 @@ public:
     void printBall();
     void draw();
     void update();
+    void updatePhysics();
 
     SDL_Rect srcRect;
     SDL_Rect destRect;

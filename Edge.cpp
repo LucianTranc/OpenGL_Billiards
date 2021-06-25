@@ -32,15 +32,15 @@ Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r) {
 
 void Edge::draw() {
 
-    TextureManager::Draw(Game::assetManager->GetTexture("pinkball"), srcRect, destRect1, flip);
-    TextureManager::Draw(Game::assetManager->GetTexture("pinkball"), srcRect, destRect2, flip);
+    TextureManager::Draw(Game::assetManager->GetTexture("blackball"), srcRect, destRect1, flip);
+    TextureManager::Draw(Game::assetManager->GetTexture("blackball"), srcRect, destRect2, flip);
 
     float nx = -(position1.y - position2.y);
 	float ny = (position1.x - position2.x);
 	float d = sqrt(nx*nx + ny * ny);
 	nx /= d;
 	ny /= d;
-    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 255, 255);
+    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
     SDL_RenderDrawLine(Game::renderer, position1.x + nx * radius, position1.y + ny * radius, position2.x + nx * radius, position2.y + ny * radius);
     SDL_RenderDrawLine(Game::renderer, position1.x - nx * radius, position1.y - ny * radius, position2.x - nx * radius, position2.y - ny * radius);
     SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
