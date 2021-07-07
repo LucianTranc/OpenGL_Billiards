@@ -1,6 +1,8 @@
 #pragma once
-#include "AssetManager.h"
+//#include "AssetManager.h"
 #include <SDL.h>
+#include "Vector2D.h"
+#include "Texture.h"
 
 class Collider;
 
@@ -16,11 +18,10 @@ public:
     void update();
     void updatePhysics();
 
-    SDL_Rect srcRect;
-    SDL_Rect destRect;
-    SDL_RendererFlip flip;
     Vector2D position;
+    Vector2D texPos;
     Vector2D velocity;
+    Texture * texture;
     float radius;
     int id;
     float mass = 100;

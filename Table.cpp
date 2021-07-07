@@ -3,22 +3,25 @@
 #include "TextureManager.h"
 #include "Game.h"
 
-Table::Table(int posx, int posy, int w, int h) {
+Table::Table() {
 
-    destRect.x = posx;
-    destRect.y = posy;
-    destRect.w = w;
-    destRect.h = h;
+}
 
-    srcRect.x = 0;
-    srcRect.y = 0;
-    srcRect.w = 1656;
-    srcRect.h = 928;
+void Table::init() {
+
+    texture = Game::assetManager->GetTexture("table");
 
 }
 
 void Table::draw() {
 
-    TextureManager::Draw(Game::assetManager->GetTexture("pooltable"), srcRect, destRect, flip);
-    
+    texture->Bind();
+    glm::vec3 translation(0, 0, 0);
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+    glm::mat4 projection = glm::ortho(0.0, 1656.0, 928.0, 0.0);
+    glm::mat4 mvp = projection * model;
+    texture->shader->Bind();
+    texture->shader->SetUniformMat4f("u_MVP", mvp);
+    Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
+
 }

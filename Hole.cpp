@@ -1,6 +1,4 @@
 #include "Hole.h"
-#include "AssetManager.h"
-#include "TextureManager.h"
 #include "Game.h"
 
 Hole::Hole(float posx, float posy, float r) {
@@ -9,15 +7,10 @@ Hole::Hole(float posx, float posy, float r) {
     position.y = posy;
     radius = r;
 
-    destRect.h = r*2;
-	destRect.w = r*2;
-	destRect.x = position.x - radius;
-	destRect.y = position.y - radius;
+    texPos.x = position.x - radius;
+	texPos.y = position.y - radius;
 
-	srcRect.h = 900;
-	srcRect.w = 900;
-	srcRect.x = 0;
-	srcRect.y = 0;
+    texture = Game::assetManager->GetTexture("ball3");
 
 }
 
@@ -29,13 +22,16 @@ void Hole::printHole() {
 
 void Hole::draw() {
 
-    TextureManager::Draw(Game::assetManager->GetTexture("pinkball"), srcRect, destRect, flip);
-    
+    Game::assetManager->SetActiveTexture("ball3");
+    glm::vec3 translation(texPos.x, texPos.y, 0);
+    glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+    glm::mat4 projection = glm::ortho(0.0, 1270.0, 670.0, 0.0);
+    glm::mat4 mvp = projection * model;
+    texture->shader->Bind();
+    texture->shader->SetUniformMat4f("u_MVP", mvp);
+    Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
 }
 
 void Hole::update() {
-
-    destRect.x = position.x - radius;
-    destRect.y = position.y - radius;
     
 }

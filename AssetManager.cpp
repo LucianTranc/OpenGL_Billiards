@@ -6,18 +6,21 @@ AssetManager::AssetManager()
 AssetManager::~AssetManager()
 {}
 
-void AssetManager::AddTexture(std::string id, const char* path, SDL_Renderer* renderer)
+void AssetManager::AddTexture(std::string id, const char* path, float w, float h, float iw, float ih)
 {
-	SDL_Surface* tempSurface = IMG_Load(path);
-	SDL_Texture* tex = SDL_CreateTextureFromSurface(renderer, tempSurface);
-	SDL_FreeSurface(tempSurface);
-
+	Texture * tex = TextureManager::LoadTexture(path, w, h, iw, ih);
 	textures.emplace(id, tex);
 }
 
-SDL_Texture* AssetManager::GetTexture(std::string id)
+Texture* AssetManager::GetTexture(std::string id)
 {
+	textures[id]->Bind();
 	return textures[id];
+}
+
+void AssetManager::SetActiveTexture(std::string id)
+{
+	textures[id]->Bind();
 }
 
 void AssetManager::AddFont(std::string id, std::string path, int fontSize)

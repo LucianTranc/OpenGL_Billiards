@@ -1,19 +1,19 @@
 #include "Ball.h"
 #include "BallManager.h"
-#include "AssetManager.h"
-#include "TextureManager.h"
+//#include "AssetManager.h"
+//#include "TextureManager.h"
 #include "Game.h"
 
 void BallManager::drawGizmos() {
 
-    SDL_SetRenderDrawColor(Game::renderer, 0, 0, 255, 255);
+    /* SDL_SetRenderDrawColor(Game::renderer, 0, 0, 255, 255);
 	for (auto& c : ballCollisions) {
         SDL_RenderDrawLine(Game::renderer, c.first->position.x, c.first->position.y, c.second->position.x, c.second->position.y);
 	}
     if (selectedHitBall) {
         SDL_RenderDrawLine(Game::renderer, selectedHitBall->position.x, selectedHitBall->position.y, mousex, mousey);
     }
-    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255); */
 
 }
 
@@ -57,7 +57,7 @@ void BallManager::AddHole(float px, float py, float r) {
 
     holes.push_back(new Hole(px, py, r));
 
-}
+} 
 
 void BallManager::updatePhysics() {
 
@@ -119,7 +119,7 @@ void BallManager::updatePhysics() {
             
 		}
         ballindex++;
-	}
+	} 
 
     for (auto& b : balls) {
         b->updatePhysics();

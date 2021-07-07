@@ -12,12 +12,12 @@ public:
     void draw();
     void update();
 
-    SDL_Rect srcRect;
-    SDL_Rect destRect1;
-    SDL_Rect destRect2;
-    SDL_RendererFlip flip;
+
+    Vector2D texPos1;
+    Vector2D texPos2;
     Vector2D position1;
     Vector2D position2;
+    Texture * texture;
     float radius;
 
 };

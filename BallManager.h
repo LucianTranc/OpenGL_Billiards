@@ -1,5 +1,5 @@
 #pragma once
-#include "AssetManager.h"
+//#include "AssetManager.h"
 #include "Ball.h"
 #include "Edge.h"
 #include "Hole.h"
@@ -24,7 +24,7 @@ public:
     void updatePhysics();
     void update();
 
-    AssetManager *assetManager;
+    //AssetManager *assetManager;
     Ball* selectedDragBall;
     Ball* selectedHitBall;
     std::vector<Ball*> balls;

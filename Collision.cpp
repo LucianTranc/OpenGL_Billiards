@@ -27,7 +27,7 @@ bool Collision::DetectCollision(Ball * b1, Ball * b2) {
 
     if (abs(distance) < b1->radius + b2->radius)
     {
-        SDL_RenderDrawLine(Game::renderer, b1->position.x, b1->position.y, b2->position.x, b2->position.y);
+        //SDL_RenderDrawLine(Game::renderer, b1->position.x, b1->position.y, b2->position.x, b2->position.y);
         b1->position.x += overlap * (distancex) / distance;
         b1->position.y += overlap * (distancey) / distance;
 

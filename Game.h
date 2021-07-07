@@ -9,9 +9,18 @@
 #include "TextureManager.h"
 #include "Ball.h"
 #include "BallManager.h"
+#include "Vector2D.h"
 #include "Collision.h"
 #include "Edge.h"
 #include "Table.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "VertexArray.h"
+#include "Shader.h"
+#include "VertexBufferLayout.h"
+#include "Texture.h"
+#include "vendor/glm/glm.hpp"
+#include "vendor/glm/gtc/matrix_transform.hpp"
 
 class Game
 
@@ -32,7 +41,7 @@ public:
 	void render();
 	void clean();
 
-	static SDL_Renderer *renderer;
+	static Renderer *renderer;
 	static SDL_Event event;
 	static bool isRunning;
 	static AssetManager *assetManager;
@@ -40,6 +49,13 @@ public:
 	static BallManager *ballManager;
 	static Vector2D *screenSize;
 	static Table *table;
+	glm::mat4 projection;
+    VertexArray * va;
+	VertexBuffer * vb;
+    VertexBufferLayout * layout;
+	IndexBuffer * ib;
+	Shader * shader;
+	Texture * texture;
 
 private:
 

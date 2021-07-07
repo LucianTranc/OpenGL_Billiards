@@ -11,31 +11,41 @@ Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r) {
     position2.y = pos2y;
     radius = r;
 
-    destRect1.h = r*2;
-	destRect1.w = r*2;
-    destRect1.x = position1.x - radius;
-    destRect1.y = position1.y - radius;
-    destRect2.h = r*2;
-	destRect2.w = r*2;
-    destRect2.x = position2.x - radius;
-    destRect2.y = position2.y - radius;
+    texPos1.x = position1.x - radius;
+	texPos1.y = position1.y - radius;
+    texPos2.x = position2.x - radius;
+	texPos2.y = position2.y - radius;
 
-	srcRect.h = 900;
-	srcRect.w = 900;
-	srcRect.x = 0;
-	srcRect.y = 0;
-
-
+    texture = Game::assetManager->GetTexture("ball2");
 
 }
 
 
 void Edge::draw() {
 
-    TextureManager::Draw(Game::assetManager->GetTexture("blackball"), srcRect, destRect1, flip);
-    TextureManager::Draw(Game::assetManager->GetTexture("blackball"), srcRect, destRect2, flip);
+    {
+        texture->Bind();
+        glm::vec3 translation(texPos1.x, texPos1.y, 0);
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+        glm::mat4 projection = glm::ortho(0.0, 1270.0, 670.0, 0.0);
+        glm::mat4 mvp = projection * model;
+        texture->shader->Bind();
+        texture->shader->SetUniformMat4f("u_MVP", mvp);
+        Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
+    }
 
-    float nx = -(position1.y - position2.y);
+    {
+        texture->Bind();
+        glm::vec3 translation(texPos2.x, texPos2.y, 0);
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+        glm::mat4 projection = glm::ortho(0.0, 1270.0, 670.0, 0.0);
+        glm::mat4 mvp = projection * model;
+        texture->shader->Bind();
+        texture->shader->SetUniformMat4f("u_MVP", mvp);
+        Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
+    }
+
+    /* float nx = -(position1.y - position2.y);
 	float ny = (position1.x - position2.x);
 	float d = sqrt(nx*nx + ny * ny);
 	nx /= d;
@@ -43,7 +53,7 @@ void Edge::draw() {
     SDL_SetRenderDrawColor(Game::renderer, 0, 0, 0, 255);
     SDL_RenderDrawLine(Game::renderer, position1.x + nx * radius, position1.y + ny * radius, position2.x + nx * radius, position2.y + ny * radius);
     SDL_RenderDrawLine(Game::renderer, position1.x - nx * radius, position1.y - ny * radius, position2.x - nx * radius, position2.y - ny * radius);
-    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255);
+    SDL_SetRenderDrawColor(Game::renderer, 255, 255, 255, 255); */
 
 }
 
