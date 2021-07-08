@@ -14,8 +14,11 @@ void AssetManager::AddTexture(std::string id, const char* path, float w, float h
 
 Texture* AssetManager::GetTexture(std::string id)
 {
-	textures[id]->Bind();
-	return textures[id];
+	if (textures[id]) {
+		textures[id]->Bind();
+		return textures[id];
+	}	
+	return nullptr;
 }
 
 void AssetManager::SetActiveTexture(std::string id)

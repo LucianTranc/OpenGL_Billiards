@@ -53,14 +53,24 @@ void BallManager::CreateCue() {
 
 }
 
-void BallManager::AddBall(float px, float py, float r, int id, bool isCue) {
+bool BallManager::BallsAreMoving() {
+    
+    for (auto& b : balls) {
+        if (b->velocity.x != 0 || b->velocity.y != 0) 
+            return true;
+    }
+    return false;
+
+}
+
+void BallManager::AddBall(float px, float py, float r, int id, bool isCue, const char * texturePath) {
 
     if (isCue) {
-        cueBall = new Ball(px, py, r, id);
+        cueBall = new Ball(px, py, r, id, texturePath);
         balls.push_back(cueBall);
     }
     else 
-        balls.push_back(new Ball(px, py, r, id));
+        balls.push_back(new Ball(px, py, r, id, texturePath));
 
 }
 
@@ -75,6 +85,12 @@ void BallManager::AddHole(float px, float py, float r) {
     holes.push_back(new Hole(px, py, r));
 
 } 
+
+void BallManager::RespawnCue() {
+
+    AddBall(350.0, 335.0, 13.0, 16, true, "white");
+
+}
 
 void BallManager::updatePhysics() {
 
@@ -130,8 +146,10 @@ void BallManager::updatePhysics() {
     	for (auto & h : holes) {
 			//b->printID();
 			if (Collision::DetectCollisionHole(b, h)) {
-                if (b == cueBall)
-                    b->resetCue();
+                if (b == cueBall) {
+                    balls.erase(balls.begin() + ballindex);
+                    queueRespawn = true;
+                }
                 else
                     balls.erase(balls.begin() + ballindex);
                 break;
@@ -148,6 +166,11 @@ void BallManager::updatePhysics() {
 }
 
 void BallManager::update() {
+
+    if (queueRespawn && !BallsAreMoving()) {
+        queueRespawn = false;
+        RespawnCue();
+    }
 
     SDL_GetMouseState(&mousex, &mousey);
 	mouseangle = std::atan2(mousex - cueBall->position.x, mousey - cueBall->position.y);
@@ -170,7 +193,7 @@ void BallManager::update() {
         selectedDragBall = nullptr; 
     }
 
-    if (Game::event.type == SDL_MOUSEBUTTONDOWN && selectedHitBall == nullptr) {
+    if ((Game::event.type == SDL_MOUSEBUTTONDOWN && selectedHitBall == nullptr) && !BallsAreMoving()) {
         //std::cout<<"alo"<<std::endl;
         mousedown = true;
         selectedHitBall = cueBall;
@@ -179,21 +202,19 @@ void BallManager::update() {
     }
     else if (mousedown && selectedHitBall) {
 
-        clickDistance =  sqrt((clickPos.x - mousex) * (clickPos.x - mousex)
-                         + (clickPos.y - mousey) * (clickPos.y - mousey));
+        hitPower += 4;
 
-        //std::cout<<dist<<std::endl;
-        std::cout<<glm::sin(mouseangle)<<std::endl;
-        std::cout<<glm::cos(mouseangle)<<std::endl;
+        //std::cout<<hitPower<<std::endl;
 
-        cue->ballSeparation = clickDistance + 5;
+        cue->ballSeparation = hitPower/2 + 5;
 
     }
     if (Game::event.type == SDL_MOUSEBUTTONUP) {
         cue->ballSeparation = 5;
         if (selectedHitBall) {
-            selectedHitBall->velocity.x = -glm::sin(mouseangle) * clickDistance / 50;
-            selectedHitBall->velocity.y = -glm::cos(mouseangle) * clickDistance / 50;
+            selectedHitBall->velocity.x = -glm::sin(mouseangle) * hitPower / 50;
+            selectedHitBall->velocity.y = -glm::cos(mouseangle) * hitPower / 50;
+            hitPower = 0;
         }
         selectedHitBall = nullptr;
         mousedown = false;

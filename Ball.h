@@ -10,7 +10,7 @@ class Ball {
 
 public:
 
-    Ball(float posx, float posy, float r, int ID);
+    Ball(float posx, float posy, float r, int ID, const char * texturePath = nullptr);
 
     void printID();
     void printBall();

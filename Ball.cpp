@@ -3,7 +3,7 @@
 //#include "TextureManager.h"
 #include "Game.h"
 
-Ball::Ball(float posx, float posy, float r, int ID) {
+Ball::Ball(float posx, float posy, float r, int ID, const char * texturePath) {
 
     id = ID;
     position.x = posx;
@@ -13,7 +13,8 @@ Ball::Ball(float posx, float posy, float r, int ID) {
     texPos.x = position.x - radius;
 	texPos.y = position.y - radius;
 
-    texture = Game::assetManager->GetTexture("ball1");
+    if (texturePath)
+        texture = Game::assetManager->GetTexture(texturePath);
 
 }
 
@@ -46,15 +47,21 @@ void Ball::resetCue() {
 void Ball::draw() {
 
     //Game::assetManager->SetActiveTexture("ball1");
-    texture->Bind();
-    glm::vec3 translation(texPos.x, texPos.y, 0);
-    glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
-    model = glm::scale(model, glm::vec3(1.0f));
-    glm::mat4 projection = glm::ortho(0.0, 1270.0, 670.0, 0.0);
-    glm::mat4 mvp = projection * model;
-    texture->shader->Bind();
-    texture->shader->SetUniformMat4f("u_MVP", mvp);
-    Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
+    if (texture) {
+        texture->Bind();
+        glm::vec3 translation(texPos.x, texPos.y, 0);
+        glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+        model = glm::scale(model, glm::vec3(1.0f));
+        glm::mat4 projection = glm::ortho(0.0, 1270.0, 670.0, 0.0);
+        glm::mat4 mvp = projection * model;
+        texture->shader->Bind();
+        texture->shader->SetUniformMat4f("u_MVP", mvp);
+        Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
+    }
+    else {
+        std::cout<<"no texture found"<<std::endl;
+    }
+    
 }
 
 void Ball::updatePhysics() {

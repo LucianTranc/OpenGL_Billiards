@@ -77,6 +77,15 @@ void Game::loadAssets() {
     assetManager->AddTexture("ball1", "assets/blackcircle1.png", 26.0f, 26.0f, 1270, 670);
     assetManager->AddTexture("ball2", "assets/blackcircle1.png", 50.0f, 50.0f, 1270, 670);
     assetManager->AddTexture("ball3", "assets/blackcircle1.png", 30.0f, 30.0f, 1270, 670);
+    assetManager->AddTexture("black", "assets/bb_black.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("blue", "assets/bb_blue.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("brown", "assets/bb_brown.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("green", "assets/bb_green.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("orange", "assets/bb_orange.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("purple", "assets/bb_purple.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("red", "assets/bb_red.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("white", "assets/bb_white.png", 26.0f, 26.0f, 1270, 670);
+    assetManager->AddTexture("yellow", "assets/bb_yellow.png", 26.0f, 26.0f, 1270, 670);
     assetManager->AddTexture("table", "assets/PoolTable.png", 1270.0f, 670.0f, 1270, 670);
     assetManager->AddTexture("cue", "assets/cue.png", 420.0f, 170.0f, 1270, 670);
 
@@ -93,27 +102,27 @@ void Game::loadMap() {
 
 void Game::createBalls() {
 
-	ballManager->AddBall(935.0, 335.0, 13.0, 1, false);
+	ballManager->AddBall(935.0, 335.0, 13.0, 1, false, "yellow");
 
-	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 + 14.0*1.0, 13.0, 2, false);
-	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 - 14.0*1.0, 13.0, 3, false);
+	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 + 14.0*1.0, 13.0, 2, false, "red");
+	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 - 14.0*1.0, 13.0, 3, false, "blue");
 
-	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*2.0, 13.0, 4, false);
-	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*0.0, 13.0, 5, false);
-	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 + 14.0*2.0, 13.0, 6, false);
+	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*2.0, 13.0, 4, false, "green");
+	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*0.0, 13.0, 5, false, "black");
+	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 + 14.0*2.0, 13.0, 6, false, "purple");
 
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*3.0, 13.0, 7, false);
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*1.0, 13.0, 8, false);
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*1.0, 13.0, 9, false);
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*3.0, 13.0, 10, false);
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*3.0, 13.0, 7, false, "blue");
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*1.0, 13.0, 8, false, "yellow");
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*1.0, 13.0, 9, false, "orange");
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*3.0, 13.0, 10, false, "brown");
 
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*4.0, 13.0, 11, false);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*2.0, 13.0, 12, false);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*0.0, 13.0, 13, false);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*2.0, 13.0, 14, false);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*4.0, 13.0, 15, false);
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*4.0, 13.0, 11, false, "brown");
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*2.0, 13.0, 12, false, "green");
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*0.0, 13.0, 13, false, "orange");
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*2.0, 13.0, 14, false, "purple");
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*4.0, 13.0, 15, false, "red");
 
-	ballManager->AddBall(350.0, 335.0, 13.0, 16, true);
+	ballManager->AddBall(350.0, 335.0, 13.0, 16, true, "white");
 
 
 	ballManager->AddEdge(112.0, 42.0, 593.0, 42.0, 25.0);

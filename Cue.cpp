@@ -11,7 +11,7 @@ Cue::Cue() {
 
 void Cue::draw() {
 
-    if (Game::ballManager->cueBall->velocity.x == 0 && Game::ballManager->cueBall->velocity.y == 0) {
+    if (!Game::ballManager->BallsAreMoving()) {
 
         mouseangle = Game::ballManager->mouseangle;
         texPos = Game::ballManager->cueBall->position;
