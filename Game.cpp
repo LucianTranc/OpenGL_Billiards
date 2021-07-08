@@ -77,7 +77,8 @@ void Game::loadAssets() {
     assetManager->AddTexture("ball1", "assets/blackcircle1.png", 26.0f, 26.0f, 1270, 670);
     assetManager->AddTexture("ball2", "assets/blackcircle1.png", 50.0f, 50.0f, 1270, 670);
     assetManager->AddTexture("ball3", "assets/blackcircle1.png", 30.0f, 30.0f, 1270, 670);
-    assetManager->AddTexture("table", "assets/PoolTable.png", 1656.0f, 928.0f, 570, 670);
+    assetManager->AddTexture("table", "assets/PoolTable.png", 1270.0f, 670.0f, 1270, 670);
+    assetManager->AddTexture("cue", "assets/cue.png", 420.0f, 170.0f, 1270, 670);
 
     GLCall(glEnable(GL_BLEND));
     GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
@@ -92,27 +93,27 @@ void Game::loadMap() {
 
 void Game::createBalls() {
 
-	ballManager->AddBall(935.0, 335.0, 13.0, 1);
+	ballManager->AddBall(935.0, 335.0, 13.0, 1, false);
 
-	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 + 14.0*1.0, 13.0, 2);
-	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 - 14.0*1.0, 13.0, 3);
+	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 + 14.0*1.0, 13.0, 2, false);
+	ballManager->AddBall(935.0 + 24.0*1.0, 335.0 - 14.0*1.0, 13.0, 3, false);
 
-	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*2.0, 13.0, 4);
-	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*0.0, 13.0, 5);
-	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 + 14.0*2.0, 13.0, 6);
+	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*2.0, 13.0, 4, false);
+	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 - 14.0*0.0, 13.0, 5, false);
+	ballManager->AddBall(935.0 + 24.0*2.0, 335.0 + 14.0*2.0, 13.0, 6, false);
 
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*3.0, 13.0, 7);
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*1.0, 13.0, 8);
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*1.0, 13.0, 9);
-	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*3.0, 13.0, 10);
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*3.0, 13.0, 7, false);
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 - 14.0*1.0, 13.0, 8, false);
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*1.0, 13.0, 9, false);
+	ballManager->AddBall(935.0 + 24.0*3.0, 335.0 + 14.0*3.0, 13.0, 10, false);
 
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*4.0, 13.0, 11);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*2.0, 13.0, 12);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*0.0, 13.0, 13);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*2.0, 13.0, 14);
-	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*4.0, 13.0, 15);
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*4.0, 13.0, 11, false);
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 - 14.0*2.0, 13.0, 12, false);
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*0.0, 13.0, 13, false);
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*2.0, 13.0, 14, false);
+	ballManager->AddBall(935.0 + 24.0*4.0, 335.0 + 14.0*4.0, 13.0, 15, false);
 
-	ballManager->AddBall(350.0, 335.0, 13.0, 16);
+	ballManager->AddBall(350.0, 335.0, 13.0, 16, true);
 
 
 	ballManager->AddEdge(112.0, 42.0, 593.0, 42.0, 25.0);
@@ -131,6 +132,8 @@ void Game::createBalls() {
 	ballManager->AddHole(635.0, 626.0, 15);
 	ballManager->AddHole(1207.0, 614.0, 15);
 	ballManager->AddHole(1207.0, 58.0, 15);
+
+	ballManager->CreateCue();
 
 }
 
@@ -168,6 +171,7 @@ void Game::render() {
 
     ballManager->drawBalls();
 
+	ballManager->drawCue();
 
     SDL_GL_SwapWindow(window);
 

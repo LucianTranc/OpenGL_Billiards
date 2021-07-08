@@ -41,9 +41,26 @@ void BallManager::drawEdges() {
 
 }
 
-void BallManager::AddBall(float px, float py, float r, int id) {
+void BallManager::drawCue() {
 
-    balls.push_back(new Ball(px, py, r, id));
+    cue->draw();
+
+}
+
+void BallManager::CreateCue() {
+    
+    cue = new Cue();
+
+}
+
+void BallManager::AddBall(float px, float py, float r, int id, bool isCue) {
+
+    if (isCue) {
+        cueBall = new Ball(px, py, r, id);
+        balls.push_back(cueBall);
+    }
+    else 
+        balls.push_back(new Ball(px, py, r, id));
 
 }
 
@@ -113,7 +130,10 @@ void BallManager::updatePhysics() {
     	for (auto & h : holes) {
 			//b->printID();
 			if (Collision::DetectCollisionHole(b, h)) {
-                balls.erase(balls.begin() + ballindex);
+                if (b == cueBall)
+                    b->resetCue();
+                else
+                    balls.erase(balls.begin() + ballindex);
                 break;
 			}
             
@@ -128,6 +148,10 @@ void BallManager::updatePhysics() {
 }
 
 void BallManager::update() {
+
+    SDL_GetMouseState(&mousex, &mousey);
+	mouseangle = std::atan2(mousex - cueBall->position.x, mousey - cueBall->position.y);
+
 
     for (auto& b : balls) {
         b->update();
@@ -146,24 +170,35 @@ void BallManager::update() {
         selectedDragBall = nullptr; 
     }
 
-    if (Game::event.type == SDL_MOUSEBUTTONDOWN) {
-        for (auto& b : balls) {
-            if (abs(mousex - b->position.x) < b->radius && abs(mousey - b->position.y) < b->radius) {
-                selectedHitBall = b;
-                break;
-            }
-        }
-        //std::cout<<"CLICK\n"<<std::endl;
+    if (Game::event.type == SDL_MOUSEBUTTONDOWN && selectedHitBall == nullptr) {
+        //std::cout<<"alo"<<std::endl;
+        mousedown = true;
+        selectedHitBall = cueBall;
+        clickPos.x = mousex;
+        clickPos.y = mousey;
+    }
+    else if (mousedown && selectedHitBall) {
+
+        clickDistance =  sqrt((clickPos.x - mousex) * (clickPos.x - mousex)
+                         + (clickPos.y - mousey) * (clickPos.y - mousey));
+
+        //std::cout<<dist<<std::endl;
+        std::cout<<glm::sin(mouseangle)<<std::endl;
+        std::cout<<glm::cos(mouseangle)<<std::endl;
+
+        cue->ballSeparation = clickDistance + 5;
+
     }
     if (Game::event.type == SDL_MOUSEBUTTONUP) {
+        cue->ballSeparation = 5;
         if (selectedHitBall) {
-            selectedHitBall->velocity.x = 2.0f * ((selectedHitBall->position.x) - (mousex))/100;
-            selectedHitBall->velocity.y = 2.0f * ((selectedHitBall->position.y) - (mousey))/100;
+            selectedHitBall->velocity.x = -glm::sin(mouseangle) * clickDistance / 50;
+            selectedHitBall->velocity.y = -glm::cos(mouseangle) * clickDistance / 50;
         }
         selectedHitBall = nullptr;
+        mousedown = false;
     }
 
-    SDL_GetMouseState(&mousex, &mousey);
 
     if (selectedDragBall) {
         selectedDragBall->position.x = mousex;

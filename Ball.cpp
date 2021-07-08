@@ -25,12 +25,21 @@ void Ball::printBall() {
     std::cout<<velocity.x<<std::endl;
     std::cout<<velocity.y<<std::endl;
     std::cout<<mass<<std::endl;
-
 }
 
 void Ball::printID() {
 
     std::cout<<id<<std::endl;
+
+}
+
+void Ball::resetCue() {
+
+    position.x = 350.f;
+    position.y = 335.f;
+
+    velocity.x = 0.f;
+    velocity.y = 0.f;
 
 }
 
@@ -40,6 +49,7 @@ void Ball::draw() {
     texture->Bind();
     glm::vec3 translation(texPos.x, texPos.y, 0);
     glm::mat4 model = glm::translate(glm::mat4(1.0f), translation);
+    model = glm::scale(model, glm::vec3(1.0f));
     glm::mat4 projection = glm::ortho(0.0, 1270.0, 670.0, 0.0);
     glm::mat4 mvp = projection * model;
     texture->shader->Bind();

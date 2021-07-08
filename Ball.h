@@ -17,6 +17,7 @@ public:
     void draw();
     void update();
     void updatePhysics();
+    void resetCue();
 
     Vector2D position;
     Vector2D texPos;
