@@ -1,6 +1,9 @@
 # OpenGL Billiards
 A billiards physics simulator that lets the user interact with ball collision physics and play billiards by themselves :( (local multiplayer will be the next feature)
 
+# Demo
+https://www.youtube.com/watch?v=SN1hIYnKvBE&ab_channel=LuciTranc
+
 # What I Learned
 * C++ Experience
 * C++ Class abstraction
