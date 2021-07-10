@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 
+//initialize variables
 Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r) {
 
     position1.x = pos1x;
@@ -23,6 +24,7 @@ Edge::Edge(float pos1x, float pos1y, float pos2x, float pos2y, float r) {
 
 void Edge::draw() {
 
+    //a draw call for each texPos
     {
         texture->Bind();
         glm::vec3 translation(texPos1.x, texPos1.y, 0);

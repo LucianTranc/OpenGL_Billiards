@@ -6,8 +6,6 @@
 #include "Renderer.h"
 #include <OpenGL/gl3.h>
 
-
-
 Shader::Shader(const std::string& filepath) : m_RendererID(0), m_FilePath(filepath)  {
 
     ShaderProgramSource source = ParseShader(filepath);
@@ -18,6 +16,10 @@ Shader::~Shader() {
     GLCall(glDeleteProgram(m_RendererID));
 }
 
+//Parse shader document
+//the shader document separates the vertex and fragment shaders
+//This was taken from this OpenGL tetorial: https://www.youtube.com/playlist?list=PLlrATfBNZ98foTJPJ_Ev03o2oq3-GGOS2
+//It might have been simpler to use two separate documents but this method would be better for larger projects
 ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
 
     std::ifstream stream(filepath);
@@ -46,6 +48,7 @@ ShaderProgramSource Shader::ParseShader(const std::string& filepath) {
     return {ss[0].str(), ss[1].str()};
 
 };
+
 
 unsigned int Shader::CompileShader(unsigned int type, const std::string& source) {
 

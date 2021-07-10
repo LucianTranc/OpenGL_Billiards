@@ -4,13 +4,6 @@
 Texture * TextureManager::LoadTexture(const char* texturePath, float w, float h, float iw, float ih) {
 
 
-    /* float positions[] {
-        0.0f, h		, 0.0f, 0.0f, //bottomleft
-        0.0f, 0.0f	, 1.0f, 0.0f, //topleft
-        w	, 0.0f	, 1.0f, 1.0f, //topright
-        w	, h		, 0.0f, 1.0f, //bottomright
-    }; */
-
     float positions[] {
         0.0f, h		, 0.0f, 0.0f, //bottomleft
         0.0f, 0.0f	, 0.0f, 1.0f, //topleft
@@ -23,8 +16,6 @@ Texture * TextureManager::LoadTexture(const char* texturePath, float w, float h,
         0, 1, 2,
         2, 3, 0
     }; 
-
-
 
 
 	VertexArray * va = new VertexArray();
@@ -64,8 +55,3 @@ Texture * TextureManager::LoadTexture(const char* texturePath, float w, float h,
 
 
 }
-
-/* void TextureManager::Draw(Texture* tex) {
-
-	
-} */

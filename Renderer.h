@@ -8,8 +8,11 @@
 
 class IndexBuffer;
 
-
+//stop program if x is false
 #define ASSERT(x) if (!(x)) raise(SIGTRAP);
+//this is meant for OpenGL function calls. first GLClearError is run, then the function specified
+//afterwards GLLogCall checks for errors in the function that was called. these are printed and then ASSERT
+//ends the program if there are any issues
 #define GLCall(x) GLClearError();x;ASSERT(GLLogCall(#x, __FILE__, __LINE__))
 
 void GLClearError();

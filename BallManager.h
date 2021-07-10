@@ -29,24 +29,29 @@ public:
     bool BallsAreMoving();
     void RespawnCue();
 
-    //AssetManager *assetManager;
+    //the drag ball is the ball marked as the ball to be dragged on screen
     Ball* selectedDragBall;
+    //the hit ball is the ball marked as the ball to be hit by the cue
     Ball* selectedHitBall;
-    Ball* cueBall;
 
+    Ball* cueBall;
     Cue* cue;
 
+    //list of game objects
     std::vector<Ball*> balls;
     std::vector<Edge*> edges;
     std::vector<Hole*> holes;
+
+    //list of collisions
 	std::vector<std::pair<Ball*,Ball*>> ballCollisions;
 	std::vector<std::pair<Ball*,Ball*>> edgeCollisions;
+    
+    //variables for cue hit calculations
     int mousex = 0, mousey = 0;
     float mouseangle = 0.f;
     float clickDistance = 0.f;
     bool mousedown = false;
     bool queueRespawn = false;
     float hitPower = 0.f;
-    Vector2D clickPos;
 
 };

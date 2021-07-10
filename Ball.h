@@ -1,5 +1,4 @@
 #pragma once
-//#include "AssetManager.h"
 #include <SDL.h>
 #include "Vector2D.h"
 #include "Texture.h"

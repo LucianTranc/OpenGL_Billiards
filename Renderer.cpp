@@ -1,10 +1,12 @@
 #include "Renderer.h"
 #include "IndexBuffer.h"
 
+//clears the error list
 void GLClearError() {
     while(glGetError() != GL_NO_ERROR);
 }
 
+//prints all OpenGl errors created by the function call
 bool GLLogCall(const char* function, const char* file, int line) {
     while(GLenum error = glGetError())
     {
@@ -14,6 +16,7 @@ bool GLLogCall(const char* function, const char* file, int line) {
     return true;
 }
 
+//bind needed OpenGL structures and make a draw call
 void Renderer::Draw(const VertexArray& va, const IndexBuffer& ib, const Shader& shader) const {
 
     shader.Bind();

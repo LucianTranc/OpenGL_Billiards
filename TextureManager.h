@@ -12,6 +12,5 @@ class TextureManager {
 
 public:
 	static Texture * LoadTexture(const char* texturePath, float w, float h, float iw, float ih);
-	static void Draw(Texture* tex);
 
 };

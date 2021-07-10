@@ -1,6 +1,7 @@
 #pragma once
 #include "Renderer.h"
 
+
 class Texture {
 private:
     unsigned int m_RendererID;

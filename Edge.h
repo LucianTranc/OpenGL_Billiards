@@ -2,6 +2,8 @@
 #include "AssetManager.h"
 #include <SDL.h>
 
+//Edges are composed of two positions on the board forming a line segment.
+//The edges collide with balls at a given radius distance resulting in a pill shaped collider
 class Edge {
 
 public:
@@ -12,7 +14,7 @@ public:
     void draw();
     void update();
 
-
+    
     Vector2D texPos1;
     Vector2D texPos2;
     Vector2D position1;

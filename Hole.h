@@ -10,7 +10,6 @@ public:
     Hole(float posx, float posy, float r);
     void printHole();
     void draw();
-    void update();
 
     Vector2D position;
     Vector2D texPos;

@@ -1,6 +1,7 @@
 #include "Hole.h"
 #include "Game.h"
 
+//initialize variables
 Hole::Hole(float posx, float posy, float r) {
 
     position.x = posx;
@@ -13,7 +14,7 @@ Hole::Hole(float posx, float posy, float r) {
     texture = Game::assetManager->GetTexture("ball3");
 
 }
-
+//print the position of the hole
 void Hole::printHole() {
     std::cout<<"Hole"<<std::endl;
     std::cout<<position.x<<std::endl;
@@ -30,8 +31,4 @@ void Hole::draw() {
     texture->shader->Bind();
     texture->shader->SetUniformMat4f("u_MVP", mvp);
     Game::renderer->Draw(*(texture->va), *(texture->ib), *(texture->shader));
-}
-
-void Hole::update() {
-    
 }
